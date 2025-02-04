@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { setToken } from "../utils/auth";
 
 function Login() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState(""); // Change username to email
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
@@ -13,12 +13,12 @@ function Login() {
 
     try {
       const response = await axios.post("http://localhost:5000/api/auth/login", {
-        username,
+        email, // Pass email instead of username
         password,
       });
 
-      setToken(response.data.token); // Save token
-      navigate("/");
+      setToken(response.data.token); // Save JWT token
+      navigate("/"); // Redirect to homepage or dashboard
     } catch (err) {
       console.error(err);
       alert("Error: " + err.response.data.message);
@@ -30,10 +30,10 @@ function Login() {
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          type="email" // Use type="email" for validation
+          placeholder="Email"
+          value={email} // Bind email state
+          onChange={(e) => setEmail(e.target.value)} // Set email
         />
         <input
           type="password"
