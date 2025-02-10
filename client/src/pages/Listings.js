@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import "../styles/Listings.css";
 
 function Listings() {
   const [properties, setProperties] = useState([]);
@@ -18,22 +19,29 @@ function Listings() {
   }, []);
 
   return (
-    <div>
+    <div className="listings-container">
       <h2>Property Listings</h2>
-      <div>
-        {properties.length === 0 ? (
-          <p>No properties available.</p>
-        ) : (
-          properties.map((property) => (
-            <div key={property._id}>
+
+      {properties.length === 0 ? (
+        <p className="no-properties">No properties available.</p>
+      ) : (
+        <div className="property-cards">
+          {properties.map((property) => (
+            <div key={property._id} className="property-card">
+           
+           <img
+                src={property.image ? `/images/${property.image}` : "/images/home1.jpg"}
+                alt={property.title}
+              />
+
               <h3>{property.title}</h3>
               <p>{property.description}</p>
-              <p>Price: ${property.price}</p>
-              <p>Location: {property.location}</p>
+              <p className="price">Price: ${property.price}</p>
+              <p className="location">Location: {property.location}</p>
             </div>
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

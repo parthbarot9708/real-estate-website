@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "../styles/Signup.css"; // Import the CSS file
 
 function Signup() {
   const [email, setEmail] = useState("");
@@ -31,9 +32,9 @@ function Signup() {
   };
 
   return (
-    <div>
-      <h2>Signup</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="signup-container">
+      <form onSubmit={handleSubmit} className="signup-form">
+        <h2>Sign Up</h2>
         <input
           type="email"
           placeholder="Email"
@@ -52,7 +53,6 @@ function Signup() {
           value={password}
           onChange={(e) => setPassword(e.target.value)} // Ensure password is set
         />
-        
         <select
           value={role}
           onChange={(e) => setRole(e.target.value)} // Ensure role is set
@@ -61,7 +61,6 @@ function Signup() {
           <option value="agent">Agent</option>
           <option value="admin">Admin</option>
         </select>
-
         <button type="submit">Sign Up</button>
       </form>
     </div>
