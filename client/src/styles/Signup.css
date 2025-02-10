@@ -1,0 +1,79 @@
+/* General Layout for Signup Page */
+.signup-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full screen height */
+    background-color: #f4f4f9; /* Light background color */
+  }
+  
+  .signup-form {
+    background-color: #ffffff; /* White background for form */
+    padding: 40px 50px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    width: 100%;
+    max-width: 400px; /* Limit form width */
+    text-align: center;
+  }
+  
+  h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  input,
+  select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  
+  /* Focus Effect for Inputs */
+  input:focus,
+  select:focus {
+    border-color: #0056b3; /* Highlight border on focus */
+    box-shadow: 0 0 5px rgba(0, 86, 179, 0.5); /* Subtle glow */
+  }
+  
+  /* Submit Button Styling */
+  button {
+    width: 100%;
+    padding: 12px;
+    background-color: #0056b3; /* Blue button */
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  /* Button Hover Effect */
+  button:hover {
+    background-color: #003d7a; /* Darker blue on hover */
+  }
+  
+  /* Mobile Responsiveness */
+  @media (max-width: 480px) {
+    .signup-form {
+      padding: 20px 30px;
+    }
+  
+    h2 {
+      font-size: 22px;
+    }
+  
+    input,
+    select,
+    button {
+      font-size: 14px;
+    }
+  }
+  
