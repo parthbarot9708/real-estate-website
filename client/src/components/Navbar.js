@@ -25,7 +25,7 @@ function Navbar() {
         <li><Link to="/signup" onClick={() => setMenuOpen(false)}><FaUser /> Signup</Link></li>
         <li><Link to="/listings" onClick={() => setMenuOpen(false)}><FaClipboardList /> Listings</Link></li>
         <li><Link to="/contact" onClick={() => setMenuOpen(false)}><FaPhone /> Contact</Link></li>
-        <li><Link to="/AdminDashboard" onClick={() => setMenuOpen(false)}><FaUserShield /> Admin</Link></li>
+        <li><Link to="/admin" onClick={() => setMenuOpen(false)}><FaUserShield /> Admin</Link></li>
       </ul>
     </nav>
   );
