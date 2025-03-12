@@ -11,7 +11,7 @@ function Listings() {
         const response = await axios.get("http://localhost:5000/api/properties");
         setProperties(response.data);
       } catch (err) {
-        console.error(err);
+        console.error("Error fetching properties:", err);
       }
     };
 
@@ -28,12 +28,17 @@ function Listings() {
         <div className="property-cards">
           {properties.map((property) => (
             <div key={property._id} className="property-card">
-           
-           <img
-                src={property.image ? `/images/${property.image}` : "/images/home1.jpg"}
+              <img
+                src={
+                  property.image
+                    ? `http://localhost:5000/api/properties/image/${property.image}`
+                    : "/images/home1.jpg"
+                }
                 alt={property.title}
+                onError={(e) => {
+                  e.target.src = "/images/home1.jpg"; // Fallback if image fails
+                }}
               />
-
               <h3>{property.title}</h3>
               <p>{property.description}</p>
               <p className="price">Price: ${property.price}</p>
