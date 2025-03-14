@@ -40,9 +40,10 @@ function Listings() {
                 }}
               />
               <h3>{property.title}</h3>
-              <p>{property.description}</p>
-              <p className="price">Price: ${property.price}</p>
+              {/* <p>{property.description}</p> */}
+              
               <p className="location">Location: {property.location}</p>
+              <p className="price">Price: ${property.price}</p>
             </div>
           ))}
         </div>

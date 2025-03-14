@@ -1,12 +1,12 @@
 /* General layout for Listings page */
 .listings-container {
     padding: 20px;
-    background-color: #f4f4f9; /* Light background */
+    background-color: #2c3e50; /* Light background */
   }
   
   h2 {
     font-size: 36px;
-    color: #333;
+    color: white;
     text-align: center;
     margin-bottom: 30px;
   }
@@ -45,21 +45,21 @@
   
   /* Property details */
   .property-card h3 {
-    font-size: 20px;
-    color: #333;
+    font-size: 22px;
+    color: white;
     margin-bottom: 10px;
   }
   
   .property-card p {
     font-size: 16px;
-    color: #555;
+    color: #888;
     margin-bottom: 10px;
   }
   
   /* Price and Location styling */
   .property-card .price {
     font-weight: bold;
-    color: #0056b3;
+    color: red;
     font-size: 18px;
   }
   

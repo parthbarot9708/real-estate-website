@@ -8,6 +8,7 @@ const propertySchema = mongoose.Schema(
     image: { type: mongoose.Schema.Types.ObjectId, ref: "fs.files" }, // GridFS ObjectId
     category: { type: String, required: true },
     location: { type: String, required: true },
+    address: { type:String, requried:true},
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   },
   { timestamps: true }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "../styles/Admin.css";
 
 const Admin = () => {
   const [properties, setProperties] = useState([]);
@@ -13,6 +14,7 @@ const Admin = () => {
   });
   const [loginForm, setLoginForm] = useState({ email: "", password: "" });
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+  const [errors, setErrors] = useState({}); // Validation errors
 
   const fetchProperties = async () => {
     try {
@@ -22,7 +24,7 @@ const Admin = () => {
       });
       setProperties(res.data);
     } catch (err) {
-      console.error("Error fetching properties:", err.response ? err.response.data : err.message);
+      console.error("Error fetching properties:", err);
     }
   };
 
@@ -44,60 +46,73 @@ const Admin = () => {
     setLoginForm({ ...loginForm, [e.target.name]: e.target.value });
   };
 
+  // **Form Validations**
+  const validateLogin = () => {
+    const newErrors = {};
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(loginForm.email)) {
+      newErrors.email = "Invalid email format";
+    }
+    if (!loginForm.password) {
+      newErrors.password = "Password is required";
+    }
+    return newErrors;
+  };
+
+  const validatePropertyForm = () => {
+    const newErrors = {};
+    if (!form.title) newErrors.title = "Title is required";
+    if (!form.description) newErrors.description = "Description is required";
+    if (!form.price || form.price <= 0) newErrors.price = "Price must be a positive number";
+    if (!form.image) newErrors.image = "Image is required";
+    if (!form.category) newErrors.category = "Category is required";
+    if (!form.location) newErrors.location = "Location is required";
+    return newErrors;
+  };
+
   const handleLogin = async (e) => {
     e.preventDefault();
+    const validationErrors = validateLogin();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
     try {
       const response = await axios.post("http://localhost:5000/api/auth/login", loginForm);
       const { token } = response.data;
       localStorage.setItem("token", token);
       setIsLoggedIn(true);
       setLoginForm({ email: "", password: "" });
-      console.log("Logged in successfully with token:", token);
+      setErrors({});
     } catch (err) {
-      console.error("Login error:", err.response ? err.response.data : err.message);
-      alert("Login failed: " + (err.response ? err.response.data.message : err.message));
+      alert("Login failed: " + (err.response?.data?.message || err.message));
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submission triggered with data:", form);
+    const validationErrors = validatePropertyForm();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
 
     const formData = new FormData();
-    formData.append("title", form.title);
-    formData.append("description", form.description);
-    formData.append("price", form.price);
-    formData.append("category", form.category);
-    formData.append("location", form.location);
-    if (form.image) {
-      formData.append("image", form.image);
-    }
+    Object.keys(form).forEach((key) => {
+      formData.append(key, form[key]);
+    });
 
     try {
       const token = localStorage.getItem("token");
-      if (!token) {
-        throw new Error("No authentication token found. Please log in.");
-      }
-
-      console.log("Sending POST request to /api/properties/add with token:", token);
-      const response = await axios.post("http://localhost:5000/api/properties/add", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          "Authorization": `Bearer ${token}`,
-        },
-        timeout: 10000, // Set a 10-second timeout to catch slow responses
+      await axios.post("http://localhost:5000/api/properties/add", formData, {
+        headers: { "Content-Type": "multipart/form-data", Authorization: `Bearer ${token}` },
       });
-
-      console.log("Server response:", response.data);
       fetchProperties();
       setForm({ title: "", description: "", price: "", image: null, category: "", location: "" });
+      setErrors({});
     } catch (err) {
-      console.error("Error in handleSubmit:", err.response ? err.response.data : err.message);
-      if (err.code === "ECONNREFUSED") {
-        alert("Failed to add property: Server is not responding. Please ensure the backend is running on port 5000.");
-      } else {
-        alert("Failed to add property: " + (err.response ? err.response.data.message : err.message));
-      }
+      alert("Failed to add property: " + (err.response?.data?.message || err.message));
     }
   };
 
@@ -109,60 +124,63 @@ const Admin = () => {
       });
       fetchProperties();
     } catch (err) {
-      console.error("Error deleting property:", err.response ? err.response.data : err.message);
+      console.error("Error deleting property:", err);
     }
   };
 
   if (!isLoggedIn) {
     return (
-      <div>
+      <div className="admin-container">
         <h2>Admin Login</h2>
-        <form onSubmit={handleLogin}>
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={loginForm.email}
-            onChange={handleLoginChange}
-            required
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={loginForm.password}
-            onChange={handleLoginChange}
-            required
-          />
-          <button type="submit">Login</button>
+        <form className="admin-form" onSubmit={handleLogin}>
+          <input type="email" name="email" placeholder="Email" value={loginForm.email} onChange={handleLoginChange} required />
+          {errors.email && <p className="error-message">{errors.email}</p>}
+          
+          <input type="password" name="password" placeholder="Password" value={loginForm.password} onChange={handleLoginChange} required />
+          {errors.password && <p className="error-message">{errors.password}</p>}
+          
+          <button type="submit" className="cta-button">Login</button>
         </form>
       </div>
     );
   }
 
   return (
-    <div>
+    <div className="admin-container">
       <h2>Admin - Manage Listings</h2>
-      <button onClick={() => { localStorage.removeItem("token"); setIsLoggedIn(false); }}>Logout</button>
-      <form onSubmit={handleSubmit}>
+      <button className="cta-button" onClick={() => { localStorage.removeItem("token"); setIsLoggedIn(false); }}>Logout</button>
+      
+      <form className="admin-form" onSubmit={handleSubmit}>
         <input type="text" name="title" placeholder="Title" value={form.title} onChange={handleChange} required />
+        {errors.title && <p className="error-message">{errors.title}</p>}
+
         <textarea name="description" placeholder="Description" value={form.description} onChange={handleChange} required />
+        {errors.description && <p className="error-message">{errors.description}</p>}
+
         <input type="number" name="price" placeholder="Price" value={form.price} onChange={handleChange} required />
+        {errors.price && <p className="error-message">{errors.price}</p>}
+
         <input type="file" name="image" onChange={handleChange} />
+        {errors.image && <p className="error-message">{errors.image}</p>}
+
         <input type="text" name="category" placeholder="Category" value={form.category} onChange={handleChange} required />
+        {errors.category && <p className="error-message">{errors.category}</p>}
+
         <input type="text" name="location" placeholder="Location" value={form.location} onChange={handleChange} required />
-        <button type="submit">Add Property</button>
+        {errors.location && <p className="error-message">{errors.location}</p>}
+
+        <button type="submit" className="cta-button">Add Property</button>
       </form>
 
       <h3>Existing Listings</h3>
-      <ul>
+      <div className="property-list">
         {properties.map((property) => (
-          <li key={property._id}>
-            {property.title} - ${property.price}
-            <button onClick={() => handleDelete(property._id)}>Delete</button>
-          </li>
+          <div key={property._id} className="property-card">
+            <h4>{property.title} - ${property.price}</h4>
+            <button className="view-details-btn" onClick={() => handleDelete(property._id)}>Delete</button>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };

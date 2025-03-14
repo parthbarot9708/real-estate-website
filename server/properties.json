@@ -1,0 +1,105 @@
+{
+    "properties": [
+      {
+        "title": "Luxury Downtown Condo with City Views",
+        "description": "A stunning 2-bedroom condo in the heart of downtown Toronto with breathtaking skyline views and modern amenities.",
+        "price": 850000,
+        "category": "Condo",
+        "location": "Toronto",
+        "address": "123 Queen St W, Toronto, ON M5H 2M9",
+        "image": "null",
+        "createdBy": "null"
+      },
+      {
+        "title": "Spacious Family Home in Quiet Neighborhood",
+        "description": "A beautiful 4-bedroom detached house in Cambridge, perfect for families looking for space and comfort.",
+        "price": 725000,
+        "category": "Detached House",
+        "location": "Cambridge",
+        "address": "45 River Rd, Cambridge, ON N1R 5S2",
+        "image": "null",
+        "createdBy": "null"
+      },
+      {
+        "title": "Modern Townhouse Near Tech Hub",
+        "description": "A newly built 3-bedroom townhouse in Kitchener, close to the technology district and major highways.",
+        "price": 630000,
+        "category": "Townhouse",
+        "location": "Kitchener",
+        "address": "78 Victoria St N, Kitchener, ON N2H 5C2",
+        "image": "null",
+        "createdBy": "null"
+      },
+      {
+        "title": "Cozy Apartment with Lake Views",
+        "description": "A charming 1-bedroom apartment in downtown Hamilton, featuring lake views and easy access to public transit.",
+        "price": 480000,
+        "category": "Apartment",
+        "location": "Hamilton",
+        "address": "32 Bay St S, Hamilton, ON L8P 3M1",
+        "image": "null",
+        "createdBy": "null"
+      },
+      {
+        "title": "Executive Condo in Entertainment District",
+        "description": "A high-end 2-bedroom condo in Toronto’s bustling Entertainment District, perfect for urban professionals.",
+        "price": 890000,
+        "category": "Condo",
+        "location": "Toronto",
+        "address": "250 King St W, Toronto, ON M5V 1J2",
+        "image": "null",
+        "createdBy": "null"
+      },
+      {
+        "title": "Affordable Starter Home in Growing Community",
+        "description": "A well-maintained 3-bedroom detached home in Cambridge, great for first-time buyers.",
+        "price": 540000,
+        "category": "Detached House",
+        "location": "Cambridge",
+        "address": "67 Wellington St, Cambridge, ON N1R 3Z7",
+        "image": "null",
+        "createdBy": "null"
+      },
+      {
+        "title": "Stylish Loft in Kitchener Innovation District",
+        "description": "A trendy 2-bedroom loft in the heart of Kitchener’s growing tech hub, with high ceilings and industrial finishes.",
+        "price": 675000,
+        "category": "Loft",
+        "location": "Kitchener",
+        "address": "88 King St E, Kitchener, ON N2G 2K6",
+        "image": "null",
+        "createdBy": "null"
+      },
+      {
+        "title": "Lakefront Property with Private Dock",
+        "description": "A breathtaking 4-bedroom home in Hamilton, featuring a private dock and stunning lakefront views.",
+        "price": 1200000,
+        "category": "Luxury Home",
+        "location": "Hamilton",
+        "address": "19 Lakeshore Rd, Hamilton, ON L8E 4X2",
+        "image": "null",
+        "createdBy": "null"
+      },
+      {
+        "title": "Charming Bungalow in Family-Friendly Area",
+        "description": "A cozy 3-bedroom bungalow in Cambridge, close to schools and parks.",
+        "price": 580000,
+        "category": "Bungalow",
+        "location": "Cambridge",
+        "address": "123 Grand Ave S, Cambridge, ON N1S 2L7",
+        "image": "null",
+        "createdBy": "null"
+      },
+      {
+        "title": "Luxury Penthouse with Panoramic City Views",
+        "description": "A premium 3-bedroom penthouse in downtown Toronto with a wraparound balcony and floor-to-ceiling windows.",
+        "price": 1750000,
+        "category": "Penthouse",
+        "location": "Toronto",
+        "address": "789 Bay St, Toronto, ON M5G 2G5",
+        "image": "null",
+        "createdBy": "null"
+      }
+    ]
+  }
+  
