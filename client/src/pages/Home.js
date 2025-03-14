@@ -1,52 +1,66 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Home.css";
+import propertyImage1 from "../images/home1.jpg";
+import propertyImage2 from "../images/home2.jpg";
+import propertyImage3 from "../images/home3.jpg";
+import companyImage from "../images/company.jpg";
 
 function Home() {
   const navigate = useNavigate();
 
   return (
     <div>
-      <section className="hero-section">
-        <div className="hero-content">
-          <img src="/images/company.jpg" alt="Company Building" className="hero-image" />
-          <p className="company-info">
-            Welcome to **Elite Residence**, your trusted partner in finding the perfect home.
+      {/* Hero Section with Company Image */}
+      <section className="intro-section">
+        <div className="intro-content">
+          <img src={companyImage} alt="Company Building" className="intro-image" />
+          <p className="company-description">
+            Welcome to <span className="highlighted-text">Elite Residence</span>, your trusted partner in finding the perfect home.
             With over 10 years of experience, we specialize in luxury, modern, and suburban properties.
             Our mission is to provide top-tier real estate solutions tailored to your needs.
           </p>
         </div>
-        <div className="hero-text">
+      </section>
+
+      {/* Hero Section with Text */}
+      <section className="hero-text-section">
+        <div className="hero-text-content">
           <h1>Find Your Dream Home</h1>
           <p>Browse through the best real estate listings today.</p>
-          <button onClick={() => navigate("/listings")}>Explore Listings</button>
+          <button className="cta-button" onClick={() => navigate("/listings")}>Explore Listings</button>
         </div>
       </section>
 
-      <section className="featured-properties">
+      {/* Featured Properties Section */}
+      <section className="featured-properties-section">
         <h2>Featured Properties</h2>
         <div className="property-list">
           <div className="property-card">
-            <img src="/images/home1.jpg" alt="Property" />
-            <h3>Luxury Villa</h3>
+            <img src={propertyImage1} alt="Detached House" />
+            <h3>Detached House</h3>
             <p>$1,200,000</p>
+            <button className="view-details-btn">View Details</button>
           </div>
           <div className="property-card">
-            <img src="/images/home2.jpg" alt="Property" />
-            <h3>Modern Homes</h3>
+            <img src={propertyImage2} alt="Townhouse" />
+            <h3>Townhouse</h3>
             <p>$850,000</p>
+            <button className="view-details-btn">View Details</button>
           </div>
           <div className="property-card">
-            <img src="/images/home3.jpg" alt="Property" />
-            <h3>Suburban House</h3>
+            <img src={propertyImage3} alt="Apartment" />
+            <h3>Apartment</h3>
             <p>$450,000</p>
+            <button className="view-details-btn">View Details</button>
           </div>
         </div>
       </section>
 
-      <section className="testimonials">
+      {/* Testimonials Section */}
+      <section className="client-testimonials">
         <h2>What Our Clients Say</h2>
-        <div>
+        <div className="testimonial-cards-container">
           <div className="testimonial-card">
             <p>"Absolutely the best real estate platform! Found my dream home in no time!"</p>
             <h4>- Sarah Johnson</h4>
@@ -58,10 +72,11 @@ function Home() {
         </div>
       </section>
 
-      <section className="cta">
+      {/* Call-to-Action Section */}
+      <section className="call-to-action">
         <h2>Looking for a New Home?</h2>
         <p>We offer the best real estate options at the most affordable prices.</p>
-        <button onClick={() => navigate("/listings")}>Get Started Today</button>
+        <button className="cta-button" onClick={() => navigate("/listings")}>Get Started Today</button>
       </section>
     </div>
   );

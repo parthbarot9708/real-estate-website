@@ -3,34 +3,48 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
-const propertyRoutes = require("./routes/propertyRoutes");
+const setupPropertyRoutes = require("./routes/propertyRoutes");
 const userRoutes = require("./routes/userRoutes");
-const { authorizeAdmin } = require("./middleware/authorize");
+const path = require("path");
+const fs = require("fs");
 
-// Load environment variables
+const contactRoutes = require("./routes/contactRoutes");
+
 dotenv.config();
-
-// Connect to MongoDB
-connectDB();
 
 const app = express();
 
-// Middleware
+// Ensure uploads directory exists
+const uploadDir = path.join(__dirname, "uploads");
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+  console.log("Created uploads directory:", uploadDir);
+}
+
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:3000",
+  credentials: true,
+}));
 
-// Use routes
-app.use("/api/auth", authRoutes);
-app.use("/api/properties", propertyRoutes); // Protected with admin check
-app.use("/api/users", userRoutes);
+connectDB().then(() => {
+  app.use("/api/auth", authRoutes);
+  app.use("/api/properties", setupPropertyRoutes());
+  app.use("/api/users", userRoutes);
+  app.use("/api/contact", contactRoutes); // Add contact routes here
 
-// Sample Route
-app.get("/", (req, res) => {
+  app.get("/", (req, res) => {
     res.send("API is running...");
-});
+  });
 
-const PORT = process.env.PORT || 5000;
+  const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
+  app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
+  });
+}).catch((err) => {
+  console.error("Failed to connect to MongoDB:", err.message);
+  process.exit(1);
 });
+
+console.log("Mongo URI: ", process.env.MONGO_URI);
