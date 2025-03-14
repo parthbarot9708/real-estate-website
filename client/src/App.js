@@ -11,7 +11,7 @@ import Contact from "./pages/Contact";
 function App() {
   return (
     <Router>
-      <Navbar />  {/* Include the Navbar at the top of the page */}
+      <Navbar /> 
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
