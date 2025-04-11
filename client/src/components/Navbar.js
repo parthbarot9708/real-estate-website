@@ -1,34 +1,169 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { FaBars, FaTimes, FaHome, FaUser, FaClipboardList, FaPhone, FaUserShield } from "react-icons/fa";
-import "../styles/Navbar.css";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  FaBars,
+  FaTimes,
+  FaHome,
+  FaClipboardList,
+  FaPhone,
+  FaUserShield,
+  FaSignOutAlt,
+  FaSignInAlt,
+  FaUserPlus,
+} from "react-icons/fa";
 import logo from "../images/logo.png";
+import { useAuth } from "../context/AuthContext";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const { isAdmin, isLoggedIn, logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    setMenuOpen(false);
+    navigate("/login");
+  };
 
   return (
-    <nav className="navbar">
-      {/* Logo Section */}
-      <div className="logo">
-        <img src={logo} alt="Property" />
-      </div>
+    <>
+      <nav className="navbar bg-gray-800 shadow-lg fixed top-0 left-0 w-full z-50 py-4 px-6 md:px-12">
+        <div className="flex items-center justify-between w-full">
+          <div className="flex items-center space-x-2">
+            <img src={logo} alt="Property" className="w-20 h-20 object-contain" />
+            <span className="text-white text-2xl font-bold">Elite Residence</span>
+          </div>
 
-      {/* Mobile Menu Icon */}
-      <div className="menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
-        {menuOpen ? <FaTimes /> : <FaBars />}
-      </div>
+          <div className="hidden md:flex items-center space-x-8">
+            <ul className="flex space-x-8">
+              <li className="text-white hover:text-gray-400 hover:scale-105 transition-all duration-300">
+                <Link to="/" className="flex items-center space-x-2">
+                  <FaHome />
+                  <span>Home</span>
+                </Link>
+              </li>
+              <li className="text-white hover:text-gray-400 hover:scale-105 transition-all duration-300">
+                <Link to="/listings" className="flex items-center space-x-2">
+                  <FaClipboardList />
+                  <span>Listings</span>
+                </Link>
+              </li>
+              <li className="text-white hover:text-gray-400 hover:scale-105 transition-all duration-300">
+                <Link to="/contact" className="flex items-center space-x-2">
+                  <FaPhone />
+                  <span>Contact</span>
+                </Link>
+              </li>
+              {isAdmin && (
+                <li className="text-white hover:text-gray-400 hover:scale-105 transition-all duration-300">
+                  <Link to="/admin" className="flex items-center space-x-2">
+                    <FaUserShield />
+                    <span>Admin</span>
+                  </Link>
+                </li>
+              )}
+              {!isLoggedIn ? (
+                <>
+                  <li className="text-white hover:text-gray-400 hover:scale-105 transition-all duration-300">
+                    <Link to="/login" className="flex items-center space-x-2">
+                      <FaSignInAlt />
+                      <span>Login</span>
+                    </Link>
+                  </li>
+                  <li className="text-white hover:text-gray-400 hover:scale-105 transition-all duration-300">
+                    <Link to="/signup" className="flex items-center space-x-2">
+                      <FaUserPlus />
+                      <span>Signup</span>
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                <li
+                  className="text-white hover:text-gray-400 hover:scale-105 transition-all duration-300 cursor-pointer"
+                  onClick={handleLogout}
+                >
+                  <div className="flex items-center space-x-2">
+                    <FaSignOutAlt />
+                    <span>Logout</span>
+                  </div>
+                </li>
+              )}
+            </ul>
+          </div>
 
-      {/* Navbar Links */}
-      <ul className={menuOpen ? "nav-links open" : "nav-links"}>
-        <li><Link to="/" onClick={() => setMenuOpen(false)}><FaHome /> Home</Link></li>
-        <li><Link to="/login" onClick={() => setMenuOpen(false)}><FaUser /> Login</Link></li>
-        <li><Link to="/signup" onClick={() => setMenuOpen(false)}><FaUser /> Signup</Link></li>
-        <li><Link to="/listings" onClick={() => setMenuOpen(false)}><FaClipboardList /> Listings</Link></li>
-        <li><Link to="/contact" onClick={() => setMenuOpen(false)}><FaPhone /> Contact</Link></li>
-        <li><Link to="/admin" onClick={() => setMenuOpen(false)}><FaUserShield /> Admin</Link></li>
-      </ul>
-    </nav>
+          {/* Mobile Icon */}
+          <div className="menu-icon md:hidden text-white" onClick={() => setMenuOpen(!menuOpen)}>
+            {menuOpen ? <FaTimes className="text-2xl" /> : <FaBars className="text-2xl" />}
+          </div>
+        </div>
+      </nav>
+
+      {/* Mobile Menu */}
+      <div
+        className={`md:hidden ${menuOpen ? "block" : "hidden"} fixed inset-0 bg-gray-800 bg-opacity-75 z-40`}
+        onClick={() => setMenuOpen(false)}
+      >
+        <div className="flex justify-center items-center h-full">
+          <ul className="text-white space-y-6 text-center text-lg">
+            <li>
+              <Link to="/" className="flex items-center justify-center space-x-2">
+                <FaHome />
+                <span>Home</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/listings" className="flex items-center justify-center space-x-2">
+                <FaClipboardList />
+                <span>Listings</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/contact" className="flex items-center justify-center space-x-2">
+                <FaPhone />
+                <span>Contact</span>
+              </Link>
+            </li>
+            {isAdmin && (
+              <li>
+                <Link to="/admin" className="flex items-center justify-center space-x-2">
+                  <FaUserShield />
+                  <span>Admin</span>
+                </Link>
+              </li>
+            )}
+            {!isLoggedIn ? (
+              <>
+                <li>
+                  <Link to="/login" className="flex items-center justify-center space-x-2">
+                    <FaSignInAlt />
+                    <span>Login</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/signup" className="flex items-center justify-center space-x-2">
+                    <FaUserPlus />
+                    <span>Signup</span>
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <li>
+                <div
+                  onClick={() => {
+                    handleLogout();
+                    setMenuOpen(false);
+                  }}
+                  className="flex items-center justify-center space-x-2 cursor-pointer"
+                >
+                  <FaSignOutAlt />
+                  <span>Logout</span>
+                </div>
+              </li>
+            )}
+          </ul>
+        </div>
+      </div>
+    </>
   );
 }
 

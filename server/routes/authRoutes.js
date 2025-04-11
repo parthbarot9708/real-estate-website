@@ -6,47 +6,48 @@ const router = express.Router();
 
 // Register a new user
 router.post("/signup", async (req, res) => {
-    const { email, username, password, role } = req.body;
+  const { email, username, password, role } = req.body;
   
-    // Check for missing required fields
-    if (!email || !username || !password) {
-      return res.status(400).json({ message: "Email, Username, and Password are required" });
+  // Check for missing required fields
+  if (!email || !username || !password) {
+    return res.status(400).json({ message: "Email, Username, and Password are required" });
+  }
+  
+  // Validate role
+  const validRoles = ["admin", "user", "agent"];
+  if (role && !validRoles.includes(role)) {
+    return res.status(400).json({ message: "Invalid role" });
+  }
+  
+  try {
+    // Check if user with this email already exists
+    const userExists = await User.findOne({ email });
+    if (userExists) {
+      return res.status(400).json({ message: "Email already exists" });
     }
-  
-    // Validate role
-    const validRoles = ["admin", "user", "agent"];
-    if (role && !validRoles.includes(role)) {
-      return res.status(400).json({ message: "Invalid role" });
-    }
-  
-    try {
-      // Check if user with this email already exists
-      const userExists = await User.findOne({ email });
-      if (userExists) {
-        return res.status(400).json({ message: "Email already exists" });
-      }
-  
-      // Hash the password
-      const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(password, salt);
-  
-      // Create new user
-      const newUser = new User({
-        email,
-        username,
-        password: hashedPassword,
-        role: role || "user",  // Default to 'user' if no role is provided
-      });
-  
-      const savedUser = await newUser.save();
-      res.status(201).json({ message: "User registered successfully", savedUser });
-    } catch (err) {
-      console.error("Error during signup:", err);  // Log detailed error
-      res.status(500).json({ message: "Server error during signup", error: err.message });
-    }
-  });
-  
-  router.post("/login", async (req, res) => {
+    
+    // Hash the password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    
+    // Create new user
+    const newUser = new User({
+      email,
+      username,
+      password: hashedPassword,
+      role: role || "user",  // Default to 'user' if no role is provided
+    });
+    
+    const savedUser = await newUser.save();
+    res.status(201).json({ message: "User registered successfully", savedUser });
+  } catch (err) {
+    console.error("Error during signup:", err);  // Log detailed error
+    res.status(500).json({ message: "Server error during signup", error: err.message });
+  }
+});
+
+// Login user and return token
+router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
@@ -67,13 +68,12 @@ router.post("/signup", async (req, res) => {
     }
 
     // Create and send a JWT token
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
-    res.status(200).json({ message: "Login successful", token });
+    const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "1h" });
+    res.status(200).json({ message: "Login successful", token, role: user.role });
   } catch (err) {
     console.error("Error during login:", err);
     res.status(500).json({ message: "Server error during login", error: err.message });
   }
 });
-  
 
 module.exports = router;
