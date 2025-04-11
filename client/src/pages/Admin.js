@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "../styles/Admin.css";
 
 const Admin = () => {
   const [properties, setProperties] = useState([]);
@@ -130,54 +129,138 @@ const Admin = () => {
 
   if (!isLoggedIn) {
     return (
-      <div className="admin-container">
-        <h2>Admin Login</h2>
-        <form className="admin-form" onSubmit={handleLogin}>
-          <input type="email" name="email" placeholder="Email" value={loginForm.email} onChange={handleLoginChange} required />
-          {errors.email && <p className="error-message">{errors.email}</p>}
-          
-          <input type="password" name="password" placeholder="Password" value={loginForm.password} onChange={handleLoginChange} required />
-          {errors.password && <p className="error-message">{errors.password}</p>}
-          
-          <button type="submit" className="cta-button">Login</button>
+      <div className="flex flex-col items-center justify-center py-10 bg-gray-100 h-screen">
+        <h2 className="text-3xl font-semibold mb-4 animate__animated animate__fadeIn">Admin Login</h2>
+        <form className="w-full max-w-md bg-white p-8 shadow-lg rounded-lg animate__animated animate__fadeIn" onSubmit={handleLogin}>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={loginForm.email}
+            onChange={handleLoginChange}
+            className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+            required
+          />
+          {errors.email && <p className="text-red-500 text-sm mb-2">{errors.email}</p>}
+
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={loginForm.password}
+            onChange={handleLoginChange}
+            className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+            required
+          />
+          {errors.password && <p className="text-red-500 text-sm mb-2">{errors.password}</p>}
+
+          <button
+            type="submit"
+            className="w-full py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-300 transform hover:scale-105"
+          >
+            Login
+          </button>
         </form>
       </div>
     );
   }
 
   return (
-    <div className="admin-container">
-      <h2>Admin - Manage Listings</h2>
-      <button className="cta-button" onClick={() => { localStorage.removeItem("token"); setIsLoggedIn(false); }}>Logout</button>
-      
-      <form className="admin-form" onSubmit={handleSubmit}>
-        <input type="text" name="title" placeholder="Title" value={form.title} onChange={handleChange} required />
-        {errors.title && <p className="error-message">{errors.title}</p>}
+    <div className="admin-container p-8">
+      <h2 className="text-3xl font-semibold mb-6 animate__animated animate__fadeIn">Admin - Manage Listings</h2>
+      <button
+        className="mb-6 py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition duration-300 transform hover:scale-105"
+        onClick={() => { localStorage.removeItem("token"); setIsLoggedIn(false); }}
+      >
+        Logout
+      </button>
 
-        <textarea name="description" placeholder="Description" value={form.description} onChange={handleChange} required />
-        {errors.description && <p className="error-message">{errors.description}</p>}
+      <form className="w-full max-w-3xl bg-white p-8 shadow-lg rounded-lg mb-8 animate__animated animate__fadeIn" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="title"
+          placeholder="Title"
+          value={form.title}
+          onChange={handleChange}
+          className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+          required
+        />
+        {errors.title && <p className="text-red-500 text-sm mb-2">{errors.title}</p>}
 
-        <input type="number" name="price" placeholder="Price" value={form.price} onChange={handleChange} required />
-        {errors.price && <p className="error-message">{errors.price}</p>}
+        <textarea
+          name="description"
+          placeholder="Description"
+          value={form.description}
+          onChange={handleChange}
+          className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+          required
+        />
+        {errors.description && <p className="text-red-500 text-sm mb-2">{errors.description}</p>}
 
-        <input type="file" name="image" onChange={handleChange} />
-        {errors.image && <p className="error-message">{errors.image}</p>}
+        <input
+          type="number"
+          name="price"
+          placeholder="Price"
+          value={form.price}
+          onChange={handleChange}
+          className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+          required
+        />
+        {errors.price && <p className="text-red-500 text-sm mb-2">{errors.price}</p>}
 
-        <input type="text" name="category" placeholder="Category" value={form.category} onChange={handleChange} required />
-        {errors.category && <p className="error-message">{errors.category}</p>}
+        <input
+          type="file"
+          name="image"
+          onChange={handleChange}
+          className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+          required
+        />
+        {errors.image && <p className="text-red-500 text-sm mb-2">{errors.image}</p>}
 
-        <input type="text" name="location" placeholder="Location" value={form.location} onChange={handleChange} required />
-        {errors.location && <p className="error-message">{errors.location}</p>}
+        <input
+          type="text"
+          name="category"
+          placeholder="Category"
+          value={form.category}
+          onChange={handleChange}
+          className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+          required
+        />
+        {errors.category && <p className="text-red-500 text-sm mb-2">{errors.category}</p>}
 
-        <button type="submit" className="cta-button">Add Property</button>
+        <input
+          type="text"
+          name="location"
+          placeholder="Location"
+          value={form.location}
+          onChange={handleChange}
+          className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+          required
+        />
+        {errors.location && <p className="text-red-500 text-sm mb-2">{errors.location}</p>}
+
+        <button
+          type="submit"
+          className="w-full py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-300 transform hover:scale-105"
+        >
+          Add Property
+        </button>
       </form>
 
-      <h3>Existing Listings</h3>
       <div className="property-list">
         {properties.map((property) => (
-          <div key={property._id} className="property-card">
-            <h4>{property.title} - ${property.price}</h4>
-            <button className="view-details-btn" onClick={() => handleDelete(property._id)}>Delete</button>
+          <div
+            key={property._id}
+            className="property-card bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 slide-in-right"
+          >
+            <h4 className="text-xl font-semibold">{property.title} - ${property.price}</h4>
+            <p>{property.location}</p>
+            <button
+              onClick={() => handleDelete(property._id)}
+              className="mt-4 py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition duration-300 transform hover:scale-105"
+            >
+              Delete
+            </button>
           </div>
         ))}
       </div>
