@@ -1,6 +1,7 @@
 // Enhanced Admin Panel with Properties & Appointments Management (with full CRUD and popups)
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Footer from "../components/Footer";
 
 const Admin = () => {
   const [activeTab, setActiveTab] = useState("properties");
@@ -176,6 +177,7 @@ const Admin = () => {
   }
 
   return (
+    <>
     <div className="p-6 max-w-6xl mx-auto">
       <h1 className="text-3xl font-bold text-center mb-6">Admin Dashboard</h1>
 
@@ -274,6 +276,8 @@ const Admin = () => {
         </div>
       )}
     </div>
+    <Footer/>
+    </>
   );
 };
 
