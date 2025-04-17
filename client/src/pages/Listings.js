@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 function Listings() {
   const [properties, setProperties] = useState([]);
   const [username, setUsername] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -19,7 +21,6 @@ function Listings() {
         console.error("Error fetching user data:", err);
       }
     };
-
     fetchUserData();
   }, []);
 
@@ -32,7 +33,6 @@ function Listings() {
         console.error("Error fetching properties:", err);
       }
     };
-
     fetchProperties();
   }, []);
 
@@ -49,21 +49,14 @@ function Listings() {
         </motion.div>
       )}
 
-      <h2 className="text-4xl font-semibold text-center mb-8 animate__animated animate__fadeInUp">
-        Property Listings
-      </h2>
+      <h2 className="text-4xl font-semibold text-center mb-8">Property Listings</h2>
 
       {properties.length === 0 ? (
-        <p className="text-center text-lg font-medium text-gray-600 animate__animated animate__fadeIn animate__delay-1s">
-          No properties available.
-        </p>
+        <p className="text-center text-lg font-medium text-gray-600">No properties available.</p>
       ) : (
         <div className="property-cards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {properties.map((property) => (
-            <div
-              key={property._id}
-              className="property-card-container w-full h-80 perspective-1000"
-            >
+            <div key={property._id} className="property-card-container w-full h-80 perspective-1000">
               <div className="flip-card relative w-full h-full">
                 <div className="flip-card-inner w-full h-full absolute top-0 left-0 transition-transform duration-500 transform rotate-y-0 hover:rotate-y-180">
                   <div className="flip-card-front w-full h-full">
@@ -82,6 +75,12 @@ function Listings() {
                     <h3 className="text-2xl font-semibold">{property.title}</h3>
                     <p>Location: {property.location}</p>
                     <p className="font-bold text-xl">${property.price}</p>
+                    <button
+                      onClick={() => navigate(`/book-appointment/${property._id}`)}
+                      className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded shadow"
+                    >
+                      Book Appointment
+                    </button>
                   </div>
                 </div>
               </div>

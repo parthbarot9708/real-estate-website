@@ -54,6 +54,16 @@ function Navbar() {
                   <span>Contact</span>
                 </Link>
               </li>
+
+              {isLoggedIn && !isAdmin && (
+                <li className="text-white hover:text-gray-400 hover:scale-105 transition-all duration-300">
+                  <Link to="/my-appointments" className="flex items-center space-x-2">
+                    <FaClipboardList />
+                    <span>My Appointments</span>
+                  </Link>
+                </li>
+              )}
+
               {isAdmin && (
                 <li className="text-white hover:text-gray-400 hover:scale-105 transition-all duration-300">
                   <Link to="/admin" className="flex items-center space-x-2">
@@ -62,6 +72,7 @@ function Navbar() {
                   </Link>
                 </li>
               )}
+
               {!isLoggedIn ? (
                 <>
                   <li className="text-white hover:text-gray-400 hover:scale-105 transition-all duration-300">
@@ -123,6 +134,16 @@ function Navbar() {
                 <span>Contact</span>
               </Link>
             </li>
+
+            {isLoggedIn && !isAdmin && (
+              <li>
+                <Link to="/my-appointments" className="flex items-center justify-center space-x-2">
+                  <FaClipboardList />
+                  <span>My Appointments</span>
+                </Link>
+              </li>
+            )}
+
             {isAdmin && (
               <li>
                 <Link to="/admin" className="flex items-center justify-center space-x-2">
@@ -131,6 +152,7 @@ function Navbar() {
                 </Link>
               </li>
             )}
+
             {!isLoggedIn ? (
               <>
                 <li>

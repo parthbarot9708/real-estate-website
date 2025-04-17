@@ -9,6 +9,7 @@ const path = require("path");
 const fs = require("fs");
 
 const contactRoutes = require("./routes/contactRoutes");
+const appointmentRoutes = require("./routes/appointments");
 
 dotenv.config();
 
@@ -31,7 +32,8 @@ connectDB().then(() => {
   app.use("/api/auth", authRoutes);
   app.use("/api/properties", setupPropertyRoutes());
   app.use("/api/users", userRoutes);
-  app.use("/api/contact", contactRoutes); // Add contact routes here
+  app.use("/api/contact", contactRoutes);
+  app.use("/api/appointments", appointmentRoutes);
 
   app.get("/", (req, res) => {
     res.send("API is running...");
