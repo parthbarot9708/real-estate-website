@@ -1,8 +1,11 @@
 import React from 'react';
-import { motion } from 'framer-motion'; // Using framer-motion for animations
+import { motion } from 'framer-motion';
+import Footer from "../components/Footer";
+
 
 const AboutUs = () => {
   return (
+    <>
     <div className="bg-gray-50 py-16 px-4">
       <div className="container mx-auto text-center">
         {/* Title Section with Animation */}
@@ -92,6 +95,8 @@ const AboutUs = () => {
         </motion.div>
       </div>
     </div>
+    <Footer />
+    </>
   );
 };
 

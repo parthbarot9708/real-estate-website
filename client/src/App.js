@@ -8,7 +8,8 @@ import Navbar from "./components/Navbar";
 import Contact from "./pages/Contact";
 import BookAppointment from "./pages/BookAppointment";
 import MyAppointments from "./pages/MyAppointments";
-
+import About from "./pages/About";
+import Services from "./pages/Services";
 
 function App() {
   return (
@@ -24,11 +25,12 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/book-appointment/:listingId" element={<BookAppointment />} />
           <Route path="/my-appointments" element={<MyAppointments />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/services" element={<Services />} />
         </Routes>
       </div>
     </Router>
   );
 }
-
 
 export default App;

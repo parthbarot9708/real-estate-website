@@ -13,6 +13,7 @@ import {
 } from "react-icons/fa";
 import logo from "../images/logo.png";
 import { useAuth } from "../context/AuthContext";
+import { FaCogs } from "react-icons/fa";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -47,6 +48,12 @@ function Navbar() {
                   <FaClipboardList />
                   <span>Listings</span>
                 </Link>
+              </li>
+              <li className="text-white hover:text-gray-400 hover:scale-105 transition-all duration-300">
+              <Link to="/services" className="flex items-center space-x-2">
+                <FaCogs />
+                <span>Services</span>
+              </Link>
               </li>
               <li className="text-white hover:text-gray-400 hover:scale-105 transition-all duration-300">
                 <Link to="/contact" className="flex items-center space-x-2">
@@ -132,6 +139,13 @@ function Navbar() {
               <Link to="/contact" className="flex items-center justify-center space-x-2">
                 <FaPhone />
                 <span>Contact</span>
+              </Link>
+            </li>
+            
+            <li>
+              <Link to="/services" className="flex items-center justify-center space-x-2">
+                <FaPhone />
+                <span>Services</span>
               </Link>
             </li>
 

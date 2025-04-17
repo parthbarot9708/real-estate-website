@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Footer from "../components/Footer";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -49,6 +50,7 @@ function Login() {
   };  
 
   return (
+    <>
     <div className="max-w-md mx-auto bg-white p-8 rounded-md shadow-md mt-12">
       <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
       <form onSubmit={handleSubmit}>
@@ -94,6 +96,8 @@ function Login() {
         </div>
       )}
     </div>
+    <Footer/>
+    </>
   );
 }
 
