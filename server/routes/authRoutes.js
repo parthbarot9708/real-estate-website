@@ -35,13 +35,13 @@ router.post("/signup", async (req, res) => {
       email,
       username,
       password: hashedPassword,
-      role: role || "user",  // Default to 'user' if no role is provided
+      role: role || "user",
     });
     
     const savedUser = await newUser.save();
     res.status(201).json({ message: "User registered successfully", savedUser });
   } catch (err) {
-    console.error("Error during signup:", err);  // Log detailed error
+    console.error("Error during signup:", err);
     res.status(500).json({ message: "Server error during signup", error: err.message });
   }
 });

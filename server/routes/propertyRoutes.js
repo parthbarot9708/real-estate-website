@@ -11,7 +11,7 @@ const setupRoutes = () => {
   const storage = multer.memoryStorage();
   const upload = multer({
     storage,
-    limits: { fileSize: 10 * 1024 * 1024 }, // 10MB limit
+    limits: { fileSize: 10 * 1024 * 1024 },
     fileFilter: (req, file, cb) => {
       if (file.mimetype.startsWith("image/")) {
         cb(null, true);
@@ -141,9 +141,8 @@ const setupRoutes = () => {
       bucketName: "propertyImages",
     });
 
-    // Fixed: Use 'new' with ObjectId
     const downloadStream = bucket.openDownloadStream(new mongoose.Types.ObjectId(id));
-    res.set("Content-Type", "image/gif"); // Adjust dynamically if needed
+    res.set("Content-Type", "image/gif");
     downloadStream.on("error", (err) => {
       console.error("Error streaming image:", err);
       res.status(404).json({ message: "Image not found" });

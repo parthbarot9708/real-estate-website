@@ -1,4 +1,3 @@
-// Enhanced Admin Panel with Properties & Appointments Management (with full CRUD and popups)
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Footer from "../components/Footer";

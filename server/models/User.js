@@ -4,21 +4,21 @@ const userSchema = mongoose.Schema(
   {
     email: {
       type: String,
-      required: [true, "Email is required"],  // Ensure email is required
-      unique: true,  // Ensure the email is unique
+      required: [true, "Email is required"],
+      unique: true,
     },
     username: {
       type: String,
-      required: [true, "Username is required"],  // Ensure username is required
+      required: [true, "Username is required"],
     },
     password: {
       type: String,
-      required: [true, "Password is required"],  // Ensure password is required
+      required: [true, "Password is required"],
     },
     role: {
       type: String,
       enum: ["admin", "user", "agent"],
-      default: "user",  // Default role is 'user'
+      default: "user",
     },
   },
   { timestamps: true }

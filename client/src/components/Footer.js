@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom"; // If you're using react-router for navigation
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (
@@ -46,7 +46,7 @@ function Footer() {
             <h4 className="text-xl font-bold mb-4">Follow Us</h4>
             <div className="flex space-x-4">
               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
-                <i className="fab fa-facebook-f"></i> {/* Assuming you're using Font Awesome */}
+                <i className="fab fa-facebook-f"></i>
               </a>
               <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
                 <i className="fab fa-twitter"></i>

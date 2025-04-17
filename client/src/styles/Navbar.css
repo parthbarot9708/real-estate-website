@@ -15,7 +15,7 @@
 
 /* Logo Section */
 .logo img {
-  width: 120px; /* Reduced size */
+  width: 120px;
   height: auto;
   object-fit: contain;
   border-radius: 10px;

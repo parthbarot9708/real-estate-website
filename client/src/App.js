@@ -15,7 +15,7 @@ function App() {
   return (
     <Router>
       <Navbar />
-      <div className="pt-24 px-4"> {/* Top padding to avoid overlap with fixed navbar */}
+      <div className="pt-24 px-4">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />

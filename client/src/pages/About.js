@@ -54,7 +54,7 @@ const AboutUs = () => {
           <div className="bg-white shadow-md rounded-lg overflow-hidden">
             <img src="https://via.placeholder.com/200" alt="Team Member" className="w-full h-48 object-cover" />
             <div className="p-6">
-              <h4 className="text-xl font-semibold text-gray-800">John Doe</h4>
+              <h4 className="text-xl font-semibold text-gray-800">Parth Barot</h4>
               <p className="text-gray-600">Property Manager</p>
             </div>
           </div>
@@ -63,7 +63,7 @@ const AboutUs = () => {
           <div className="bg-white shadow-md rounded-lg overflow-hidden">
             <img src="https://via.placeholder.com/200" alt="Team Member" className="w-full h-48 object-cover" />
             <div className="p-6">
-              <h4 className="text-xl font-semibold text-gray-800">Jane Smith</h4>
+              <h4 className="text-xl font-semibold text-gray-800">Navdeep Kaur</h4>
               <p className="text-gray-600">Customer Support</p>
             </div>
           </div>
@@ -72,7 +72,16 @@ const AboutUs = () => {
           <div className="bg-white shadow-md rounded-lg overflow-hidden">
             <img src="https://via.placeholder.com/200" alt="Team Member" className="w-full h-48 object-cover" />
             <div className="p-6">
-              <h4 className="text-xl font-semibold text-gray-800">Alex Johnson</h4>
+              <h4 className="text-xl font-semibold text-gray-800">Jay Patel</h4>
+              <p className="text-gray-600">Maintenance Coordinator</p>
+            </div>
+          </div>
+
+          {/* Team Member 4 */}
+          <div className="bg-white shadow-md rounded-lg overflow-hidden">
+            <img src="https://via.placeholder.com/200" alt="Team Member" className="w-full h-48 object-cover" />
+            <div className="p-6">
+              <h4 className="text-xl font-semibold text-gray-800">Minna Jose</h4>
               <p className="text-gray-600">Maintenance Coordinator</p>
             </div>
           </div>
