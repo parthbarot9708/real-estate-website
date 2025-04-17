@@ -59,17 +59,23 @@ const Admin = () => {
 
   const handlePropertySubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
+      const data = new FormData();
+      Object.entries(form).forEach(([key, value]) => {
+        if (value) data.append(key, value); // avoid appending null image
+      });
+  
       if (editPropertyId) {
-        await axios.put(`http://localhost:5000/api/properties/edit/${editPropertyId}`, form, {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        await axios.put(`http://localhost:5000/api/properties/edit/${editPropertyId}`, data, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         });
         alert("✅ Property updated successfully.");
         setEditPropertyId(null);
       } else {
-        const data = new FormData();
-        Object.entries(form).forEach(([key, value]) => data.append(key, value));
         await axios.post("http://localhost:5000/api/properties/add", data, {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -78,6 +84,7 @@ const Admin = () => {
         });
         alert("✅ Property added successfully.");
       }
+  
       setForm({ title: "", description: "", price: "", image: null, category: "", location: "" });
       fetchProperties();
     } catch (err) {
@@ -85,6 +92,7 @@ const Admin = () => {
       alert("❌ Failed to save property.");
     }
   };
+  
 
   const handlePropertyEdit = (property) => {
     setEditPropertyId(property._id);
