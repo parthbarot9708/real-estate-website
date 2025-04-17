@@ -77,26 +77,51 @@ const setupRoutes = () => {
     }
   });
 
-  router.put("/edit/:id", authorizeAdmin, async (req, res) => {
-    const { title, description, price, image, category, location } = req.body;
+  router.put("/edit/:id", authorizeAdmin, upload, async (req, res) => {
+    const { title, description, price, category, location } = req.body;
     const { id } = req.params;
-
+  
+    let updatedFields = { title, description, price, category, location };
+  
+    // If a new image is uploaded
+    if (req.file) {
+      try {
+        const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
+          bucketName: "propertyImages",
+        });
+  
+        const uploadStream = bucket.openUploadStream(`${Date.now()}-${req.file.originalname}`);
+        const imageId = uploadStream.id;
+  
+        const bufferStream = require("stream").Readable.from(req.file.buffer);
+        bufferStream.pipe(uploadStream);
+  
+        await new Promise((resolve, reject) => {
+          uploadStream.on("finish", resolve);
+          uploadStream.on("error", reject);
+        });
+  
+        updatedFields.image = imageId;
+      } catch (err) {
+        console.error("GridFS upload error:", err);
+        return res.status(500).json({ message: "Error uploading image to GridFS", error: err.message });
+      }
+    }
+  
     try {
-      const updatedProperty = await Property.findByIdAndUpdate(
-        id,
-        { title, description, price, image, category, location },
-        { new: true }
-      );
-
+      const updatedProperty = await Property.findByIdAndUpdate(id, updatedFields, { new: true });
+  
       if (!updatedProperty) {
         return res.status(404).json({ message: "Property not found" });
       }
-
+  
       res.status(200).json({ message: "Property updated", updatedProperty });
     } catch (err) {
+      console.error("Error updating property:", err);
       res.status(500).json({ message: "Server error", error: err.message });
     }
   });
+  
 
   router.delete("/delete/:id", authorizeAdmin, async (req, res) => {
     const { id } = req.params;

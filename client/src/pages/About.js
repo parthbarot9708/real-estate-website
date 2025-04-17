@@ -25,7 +25,7 @@ const AboutUs = () => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 1.5 }}
         >
-          Welcome to XYZ Property Management, where we take pride in managing the finest residential and commercial properties.
+          Welcome to Elite Residence, we are experts with managing the finest residential and commercial properties.
           Our team ensures each property is well-maintained, providing a high-quality living experience for tenants and a hassle-free ownership experience for property owners.
         </motion.p>
 
