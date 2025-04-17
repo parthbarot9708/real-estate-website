@@ -22,7 +22,6 @@ router.get("/profile", auth, async (req, res) => {
   }
 });
 
-// Admin - Promote a user to admin
 router.put("/promote/:id", authorizeAdmin, async (req, res) => {
   const { id } = req.params;
 
@@ -39,7 +38,6 @@ router.put("/promote/:id", authorizeAdmin, async (req, res) => {
   }
 });
 
-// Admin - Demote a user to regular user
 router.put("/demote/:id", authorizeAdmin, async (req, res) => {
   const { id } = req.params;
 
@@ -56,7 +54,6 @@ router.put("/demote/:id", authorizeAdmin, async (req, res) => {
   }
 });
 
-// Admin - Delete a user
 router.delete("/delete/:id", authorizeAdmin, async (req, res) => {
   const { id } = req.params;
 

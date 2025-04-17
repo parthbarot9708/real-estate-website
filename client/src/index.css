@@ -2,9 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* index.css or your global stylesheet */
 
-/* Slide In from Right */
 @keyframes slideInFromRight {
     0% {
       transform: translateX(100%);
@@ -16,7 +14,6 @@
     }
   }
   
-  /* Slide In from Left */
   @keyframes slideInFromLeft {
     0% {
       transform: translateX(-100%);
@@ -28,7 +25,6 @@
     }
   }
   
-  /* Apply the slide-in animations */
   .slide-in-right {
     animation: slideInFromRight 0.5s ease-out forwards;
   }

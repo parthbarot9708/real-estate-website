@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import axios from "axios";
 import "leaflet/dist/leaflet.css";
 import contactImage from "../images/contact.jpg";
-import Footer from "../components/Footer"; // ✅ Footer imported
+import Footer from "../components/Footer";
 
 const Contact = () => {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
@@ -156,8 +156,6 @@ const Contact = () => {
           </div>
         </div>
       </div>
-
-      {/* Footer added below */}
       <Footer />
     </>
   );

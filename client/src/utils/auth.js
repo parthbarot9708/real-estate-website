@@ -7,7 +7,7 @@ export const getToken = () => {
 };
 
 export const setRole = (role) => {
-  localStorage.setItem("role", role); // Store role in localStorage
+  localStorage.setItem("role", role);
 };
 
 export const removeToken = () => {
@@ -15,5 +15,5 @@ export const removeToken = () => {
 };
 
 export const getRole = () => {
-  return localStorage.getItem("role"); // Retrieve role from localStorage
+  return localStorage.getItem("role");
 };

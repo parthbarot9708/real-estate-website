@@ -18,7 +18,7 @@ const Contact = mongoose.model("Contact", contactSchema);
 router.post("/", async (req, res) => {
   const { name, email, message } = req.body;
 
-  console.log("Received data:", { name, email, message }); // Log the received data
+  console.log("Received data:", { name, email, message });
 
   const newContact = new Contact({
     name,
@@ -28,10 +28,10 @@ router.post("/", async (req, res) => {
 
   try {
     const savedContact = await newContact.save();
-    console.log("Saved contact:", savedContact); // Log saved data
+    console.log("Saved contact:", savedContact);
     res.status(201).json({ message: "Contact form submitted successfully", savedContact });
   } catch (error) {
-    console.error("Error saving contact form:", error); // Log the error
+    console.error("Error saving contact form:", error);
     res.status(500).json({ message: "Server error, could not save contact form." });
   }
 });
